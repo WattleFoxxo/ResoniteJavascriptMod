@@ -24,34 +24,34 @@ namespace JsMod {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Debug] {message}");
-			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_DEBUG", false, message);
+			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_DEBUG", false, message.ToString());
 		}
 		public void log(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Log] {message}");
-			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_LOG", false, message);
+			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_LOG", false, message.ToString());
 		}
 
 		public void Info(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Info] {message}");
-			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_INFO", false, message);
+			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_INFO", false, message.ToString());
 		}
 
 		public void Warn(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Warn] {message}");
-			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_WARN", false, message);
+			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_WARN", false, message.ToString());
 		}
 
 		public void Error(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Error] {message}");
-			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_ERROR", false, message);
+			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_ERROR", false, message.ToString());
 		}
 	}
 }
