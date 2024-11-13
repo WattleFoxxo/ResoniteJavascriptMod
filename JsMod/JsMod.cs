@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.WebSockets;
 using System.IO;
+// using ResoniteHotReloadLib;
 
 namespace JsMod {
 	public class JsMod : ResoniteMod {
@@ -60,22 +61,22 @@ namespace JsMod {
 		}
 
 		public override void OnEngineInit() {
-			//HotReloader.RegisterForHotReload(this);
+			// HotReloader.RegisterForHotReload(this);
 
 			config = GetConfiguration();
 			Setup();
 		}
+		/*
+		static void BeforeHotReload() {
+			Harmony harmony = new Harmony(harmonyId);
+			harmony.UnpatchAll(harmonyId);
+		}
 
-		//static void BeforeHotReload() {
-		//	Harmony harmony = new Harmony(harmonyId);
-		//	harmony.UnpatchAll(harmonyId);
-		//}
-
-		//static void OnHotReload(ResoniteMod modInstance) {
-		//	config = modInstance.GetConfiguration();
-		//	Setup();
-		//}
-
+		static void OnHotReload(ResoniteMod modInstance) {
+			config = modInstance.GetConfiguration();
+			Setup();
+		}
+		*/
 		static void Setup() {
 			Harmony harmony = new Harmony(harmonyId);
 			harmony.PatchAll();
@@ -107,14 +108,17 @@ namespace JsMod {
 			}
 		}
 
-		public static async void ExecuteJavascript(FrooxEngineContext context, string code, List<Arg> args) {
+		public static void ExecuteJavascript(FrooxEngineContext context, string code, List<Arg> args) {
 			Jint.Engine engine = new Jint.Engine();
 
 			engine.SetValue("console", new Console(context));
+			engine.SetValue("dynamicImpulseHandler", ProtoFluxHelper.DynamicImpulseHandler);
 			engine.SetValue("world", context.World);
-			engine.SetValue("frooxEngine", new {
-				dynamicImpulseHandler = ProtoFluxHelper.DynamicImpulseHandler
-			});
+
+			//engine.SetValue("frooxEngine", new {
+			//	dynamicImpulseHandler = ProtoFluxHelper.DynamicImpulseHandler,
+			//	world = context.World,
+			//});
 
 			if (config.GetValue(allowHttpClient))
 				engine.SetValue("httpClient", new HttpClient()); // *TODO* evaluate the safty of this class!
@@ -129,7 +133,7 @@ namespace JsMod {
 				engine.SetValue(arg.name, arg.value);
 			}
 
-			await Task.Run(() => engine.Execute(code));
+			engine.Execute(code);
 		}
 
 		[HarmonyPatch(typeof(ProtoFlux.Runtimes.Execution.Nodes.Actions.DynamicImpulseTrigger))]
@@ -172,7 +176,7 @@ namespace JsMod {
 						ExecuteJavascript(context, code, args);
 					}
 				} catch (Exception ex) {
-					Warn($"Exception: {ex.Message}");
+					Warn($"Exception: {ex}");
 				}
 			}
 		}

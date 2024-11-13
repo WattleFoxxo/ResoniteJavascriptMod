@@ -20,7 +20,7 @@ namespace JsMod {
 			_context = context;
 		}
 
-		public void Debug(params object[] args) {
+		public void debug(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Debug] {message}");
@@ -33,21 +33,21 @@ namespace JsMod {
 			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_LOG", false, message.ToString());
 		}
 
-		public void Info(params object[] args) {
+		public void info(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Info] {message}");
 			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_INFO", false, message.ToString());
 		}
 
-		public void Warn(params object[] args) {
+		public void warn(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Warn] {message}");
 			ProtoFluxHelper.DynamicImpulseHandler.TriggerDynamicImpulseWithArgument<string>(_context.World.RootSlot, "_JSMOD_CONSOLE_WARN", false, message.ToString());
 		}
 
-		public void Error(params object[] args) {
+		public void error(params object[] args) {
 			string message = string.Join(" ", args);
 
 			JsMod.Msg($"[Javascript Console] [Error] {message}");
